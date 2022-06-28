@@ -41,7 +41,7 @@ public class AccountService {
     public AccountDto updateAccount(AccountDto dto) {
         String id = dto.getId();
         String password = dto.getPassword();
-        Account account = accountRepository.findById(id).orElseThrow(CustomNoSuchDataException::new);
+        Account account = accountRepository.getReferenceById(id);
         account.updateAccount(dto.getUsername(), dto.getEnabled());
         if (!password.equals(account.getPassword())) {
             account.updatePassword(password);
