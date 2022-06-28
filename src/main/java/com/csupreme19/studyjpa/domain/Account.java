@@ -8,17 +8,13 @@ import javax.persistence.Id;
 import java.time.LocalDateTime;
 
 @Getter
-@Entity
 @Setter
-public class Account {
+@Entity
+public class Account extends CommonEntity {
     @Id
     private String id;
     private String password;
     private String username;
     private Boolean enabled;
     private LocalDateTime lastPasswordModifiedAt;
-    private LocalDateTime createdAt;
-    private String createdIp;
-    private LocalDateTime modifiedAt;
-    private String modifiedIp;
 }
