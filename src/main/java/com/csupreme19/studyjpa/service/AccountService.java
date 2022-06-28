@@ -7,8 +7,8 @@ import com.csupreme19.studyjpa.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -17,6 +17,7 @@ import java.util.List;
  * @since 2022.06.22
  */
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class AccountService {
 
@@ -39,14 +40,12 @@ public class AccountService {
 
     public AccountDto updateAccount(AccountDto dto) {
         String id = dto.getId();
+        String password = dto.getPassword();
         Account account = accountRepository.findById(id).orElseThrow(CustomNoSuchDataException::new);
-        account.setEnabled(dto.getEnabled());
-        account.setModifiedAt(LocalDateTime.now());
-        if (!dto.getPassword().equals(account.getPassword())) {
-            account.setPassword(dto.getPassword());
-            account.setLastPasswordModifiedAt(LocalDateTime.now());
+        account.updateAccount(dto.getUsername(), dto.getEnabled());
+        if (!password.equals(account.getPassword())) {
+            account.updatePassword(password);
         }
-        account.setUsername(dto.getUsername());
         return this.toDto(account);
     }
 

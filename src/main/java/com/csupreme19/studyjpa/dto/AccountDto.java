@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class AccountDto {
+public class AccountDto extends CommonDto {
     private String id;
     private String password;
     private String username;
