@@ -5,6 +5,6 @@ import javax.persistence.Entity;
 
 @Entity
 public class PostTag {
-    @EmbeddedId
+    @EmbeddedId // 복합키
     private PostTagId postTagId;
 }

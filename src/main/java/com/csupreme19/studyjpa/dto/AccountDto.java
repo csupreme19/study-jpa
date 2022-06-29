@@ -1,5 +1,6 @@
 package com.csupreme19.studyjpa.dto;
 
+import com.csupreme19.studyjpa.domain.Person;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,4 +14,6 @@ public class AccountDto extends CommonDto {
     private String username;
     private Boolean enabled;
     private LocalDateTime lastPasswordModifiedAt;
+
+    private Person person;
 }
