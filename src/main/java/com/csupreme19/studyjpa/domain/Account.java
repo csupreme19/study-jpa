@@ -5,8 +5,10 @@ import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Entity
@@ -21,6 +23,9 @@ public class Account extends CommonEntity {
 
     @OneToOne(mappedBy = "account")     // 양방향 매핑 관계를 정의
     private Person person;
+
+    @OneToMany(mappedBy = "modifier")
+    private List<Post> posts;
 
     public void updateAccount(String username, Boolean enabled) {
         this.username = username;

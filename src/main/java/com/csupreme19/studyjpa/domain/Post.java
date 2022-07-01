@@ -14,9 +14,12 @@ public class Post extends CommonEntity {
     private String content;
     private Boolean enabled;
     private Long viewCount;
-    private String modifiedId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "createdId")
-    private Account account;
+    private Account author;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "modifiedId")
+    private Account modifier;
 }

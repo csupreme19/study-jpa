@@ -18,6 +18,7 @@ public class JpaRepositoryTests {
     private static final String TEST_USER_ID = "csupreme19";
     private static final Long TEST_PERSON_ID = 1L;
     private static final Long TEST_POST_ID = 1L;
+    private static final String TEST_MODIFIER_ID = "honggilsoon19";
 
     @Autowired
     private AccountRepository accountRepository;
@@ -32,21 +33,37 @@ public class JpaRepositoryTests {
     @DisplayName("OneToOne 양방향 매핑 테스트")
     public void oneToOneMapping() {
         Account account = accountRepository.findById(TEST_USER_ID).orElseThrow();
-        Person person = personRepository.findById(TEST_PERSON_ID).orElseThrow();
-
         log.info(account.toString());
+
+        Person person = personRepository.findById(TEST_PERSON_ID).orElseThrow();
         log.info(person.toString());
-        Assertions.assertThat(account.getPerson()).isEqualTo(person);
-        Assertions.assertThat(person.getAccount()).isEqualTo(account);
+
+        Assertions.assertThat(account.getPerson()).isNotNull().isEqualTo(person);
+        Assertions.assertThat(person.getAccount()).isNotNull().isEqualTo(account);
     }
 
     @Test
     @DisplayName("ManyToOne 단방향 매핑 테스트")
     public void manyToOneMapping() {
         Post post = postRepository.findById(TEST_POST_ID).orElseThrow();
-        Account author = post.getAccount();
         log.info(post.toString());
+
+        Account author = post.getAuthor();
         log.info(author.toString());
+
         Assertions.assertThat(author).isNotNull();
+    }
+
+    @Test
+    @DisplayName("OneToMany 양방향 매핑 테스트")
+    public void oneToManyMapping() {
+        Account modifier = accountRepository.findById(TEST_MODIFIER_ID).orElseThrow();
+        log.info(modifier.toString());
+
+        Post post = postRepository.findById(TEST_POST_ID).orElseThrow();
+        log.info(post.toString());
+
+        Assertions.assertThat(modifier.getPosts().get(0)).isNotNull().isEqualTo(post);
+        Assertions.assertThat(post.getModifier()).isNotNull().isEqualTo(modifier);
     }
 }
