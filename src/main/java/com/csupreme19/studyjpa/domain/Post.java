@@ -1,8 +1,10 @@
 package com.csupreme19.studyjpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import lombok.Getter;
 
+import javax.persistence.*;
+
+@Getter
 @Entity
 public class Post extends CommonEntity {
     @Id
@@ -12,6 +14,9 @@ public class Post extends CommonEntity {
     private String content;
     private Boolean enabled;
     private Long viewCount;
-    private String createdId;
     private String modifiedId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "createdId")
+    private Account account;
 }

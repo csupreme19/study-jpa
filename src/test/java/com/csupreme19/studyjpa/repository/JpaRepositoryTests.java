@@ -1,9 +1,8 @@
-package com.csupreme19.studyjpa;
+package com.csupreme19.studyjpa.repository;
 
 import com.csupreme19.studyjpa.domain.Account;
 import com.csupreme19.studyjpa.domain.Person;
-import com.csupreme19.studyjpa.repository.AccountRepository;
-import com.csupreme19.studyjpa.repository.PersonRepository;
+import com.csupreme19.studyjpa.domain.Post;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,12 +17,16 @@ public class JpaRepositoryTests {
 
     private static final String TEST_USER_ID = "csupreme19";
     private static final Long TEST_PERSON_ID = 1L;
+    private static final Long TEST_POST_ID = 1L;
 
     @Autowired
     private AccountRepository accountRepository;
 
     @Autowired
     private PersonRepository personRepository;
+
+    @Autowired
+    private PostRepository postRepository;
 
     @Test
     @DisplayName("OneToOne 양방향 매핑 테스트")
@@ -35,5 +38,15 @@ public class JpaRepositoryTests {
         log.info(person.toString());
         Assertions.assertThat(account.getPerson()).isEqualTo(person);
         Assertions.assertThat(person.getAccount()).isEqualTo(account);
+    }
+
+    @Test
+    @DisplayName("ManyToOne 단방향 매핑 테스트")
+    public void manyToOneMapping() {
+        Post post = postRepository.findById(TEST_POST_ID).orElseThrow();
+        Account author = post.getAccount();
+        log.info(post.toString());
+        log.info(author.toString());
+        Assertions.assertThat(author).isNotNull();
     }
 }
