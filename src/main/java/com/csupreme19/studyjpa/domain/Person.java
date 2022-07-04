@@ -8,6 +8,7 @@ import javax.persistence.*;
 
 @Getter
 @Entity
+@Access(AccessType.FIELD)
 @ToString(exclude = "account")
 public class Person extends CommonEntity {
     @Id

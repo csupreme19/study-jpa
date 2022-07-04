@@ -4,18 +4,19 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 @Getter
 @Setter
 @Entity
+@Access(AccessType.PROPERTY)
 @ToString
 public class Item extends CommonEntity {
     private Long id;
     private String itemName;
     private String itemNumber;
+
+    @Transient              // 프로퍼티 접근자 방식이므로 해당 Transient는 적용되지 않음
     private Long itemPrice;
     private Boolean enabled;
 

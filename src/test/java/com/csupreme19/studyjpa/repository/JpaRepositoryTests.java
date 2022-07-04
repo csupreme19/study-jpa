@@ -107,4 +107,20 @@ public class JpaRepositoryTests {
         assertThat(item).isNotNull();
         assertThat(item.getItemNumber()).isNull();
     }
+
+    @Test
+    @DisplayName("Field 액세스 타입 테스트")
+    public void accessTypeFieldTest() {
+        Person person = personRepository.findById(TEST_PERSON_ID).orElseThrow();
+        log.info(person.toString());
+        assertThat(person.getPhone()).isNotNull();
+    }
+
+    @Test
+    @DisplayName("Property 액세스 타입 테스트")
+    public void accessTypeMethodTest() {
+        Item item = itemRepository.findById(TEST_ITEM_ID).orElseThrow();
+        log.info(item.toString());
+        assertThat(item.getItemPrice()).isNotNull();
+    }
 }
