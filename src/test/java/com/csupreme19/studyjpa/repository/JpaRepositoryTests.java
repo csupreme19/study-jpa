@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @DataJpaTest
 public class JpaRepositoryTests {
     private static final Logger log = LoggerFactory.getLogger(JpaRepositoryTests.class);
@@ -36,7 +38,7 @@ public class JpaRepositoryTests {
 
     @Test
     @DisplayName("OneToOne 양방향 매핑 테스트")
-    public void oneToOneMapping() {
+    public void oneToOneMappingTest() {
         Account account = accountRepository.findById(TEST_USER_ID).orElseThrow();
         log.info(account.toString());
 
@@ -49,32 +51,32 @@ public class JpaRepositoryTests {
 
     @Test
     @DisplayName("ManyToOne 단방향 매핑 테스트")
-    public void manyToOneMapping() {
+    public void manyToOneMappingTest() {
         Post post = postRepository.findById(TEST_POST_ID).orElseThrow();
         log.info(post.toString());
 
         Account author = post.getAuthor();
         log.info(author.toString());
 
-        Assertions.assertThat(author).isNotNull();
+        assertThat(author).isNotNull();
     }
 
     @Test
     @DisplayName("OneToMany 양방향 매핑 테스트")
-    public void oneToManyMapping() {
+    public void oneToManyMappingTest() {
         Account modifier = accountRepository.findById(TEST_MODIFIER_ID).orElseThrow();
         log.info(modifier.toString());
 
         Post post = postRepository.findById(TEST_POST_ID).orElseThrow();
         log.info(post.toString());
 
-        Assertions.assertThat(modifier.getPosts().get(0)).isNotNull().isEqualTo(post);
-        Assertions.assertThat(post.getModifier()).isNotNull().isEqualTo(modifier);
+        assertThat(modifier.getPosts().get(0)).isNotNull().isEqualTo(post);
+        assertThat(post.getModifier()).isNotNull().isEqualTo(modifier);
     }
 
     @Test
     @DisplayName("ManyToMany 양방향 매핑 테스트")
-    public void manyToManyMapping() {
+    public void manyToManyMappingTest() {
         Post post = postRepository.findById(TEST_POST_ID).orElseThrow();
         log.info(post.toString());
         log.info(post.getTags().toString());
@@ -83,7 +85,16 @@ public class JpaRepositoryTests {
         log.info(tag.toString());
         log.info(tag.getPosts().toString());
 
-        Assertions.assertThat(post.getTags()).isNotNull();
-        Assertions.assertThat(tag.getPosts()).isNotNull();
+        assertThat(post.getTags()).isNotNull();
+        assertThat(tag.getPosts()).isNotNull();
+    }
+
+    @Test
+    @DisplayName("Transient Field 테스트")
+    public void transientFieldTest() {
+        Person person = personRepository.findById(TEST_PERSON_ID).orElseThrow();
+        log.info(person.toString());
+        assertThat(person).isNotNull();
+        assertThat(person.getEmail()).isNull();
     }
 }

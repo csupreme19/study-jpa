@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Getter
 @Entity
@@ -18,6 +15,8 @@ public class Person extends CommonEntity {
 
     private Long age;
     private String phone;
+
+    @Transient              // 영속성 대상에서 제외한다.
     private String email;
 
     @OneToOne   // OneToOne 매핑은 엔티티 1:1 매핑으로 기본값으로 Eager의 FetchType
