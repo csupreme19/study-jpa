@@ -3,6 +3,7 @@ package com.csupreme19.studyjpa.repository;
 import com.csupreme19.studyjpa.domain.Account;
 import com.csupreme19.studyjpa.domain.Person;
 import com.csupreme19.studyjpa.domain.Post;
+import com.csupreme19.studyjpa.domain.Tag;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,6 +20,7 @@ public class JpaRepositoryTests {
     private static final Long TEST_PERSON_ID = 1L;
     private static final Long TEST_POST_ID = 1L;
     private static final String TEST_MODIFIER_ID = "honggilsoon19";
+    private static final Long TEST_TAG_ID = 1L;
 
     @Autowired
     private AccountRepository accountRepository;
@@ -28,6 +30,9 @@ public class JpaRepositoryTests {
 
     @Autowired
     private PostRepository postRepository;
+
+    @Autowired
+    private TagRepository tagRepository;
 
     @Test
     @DisplayName("OneToOne 양방향 매핑 테스트")
@@ -65,5 +70,20 @@ public class JpaRepositoryTests {
 
         Assertions.assertThat(modifier.getPosts().get(0)).isNotNull().isEqualTo(post);
         Assertions.assertThat(post.getModifier()).isNotNull().isEqualTo(modifier);
+    }
+
+    @Test
+    @DisplayName("ManyToMany 양방향 매핑 테스트")
+    public void manyToManyMapping() {
+        Post post = postRepository.findById(TEST_POST_ID).orElseThrow();
+        log.info(post.toString());
+        log.info(post.getTags().toString());
+
+        Tag tag = tagRepository.findById(TEST_TAG_ID).orElseThrow();
+        log.info(tag.toString());
+        log.info(tag.getPosts().toString());
+
+        Assertions.assertThat(post.getTags()).isNotNull();
+        Assertions.assertThat(tag.getPosts()).isNotNull();
     }
 }
