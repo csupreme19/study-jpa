@@ -41,3 +41,10 @@ INSERT INTO POST_TAG(post_id, tag_id) VALUES (1, 3);
 INSERT INTO POST_TAG(post_id, tag_id) VALUES (2, 1);
 INSERT INTO POST_TAG(post_id, tag_id) VALUES (2, 3);
 INSERT INTO POST_TAG(post_id, tag_id) VALUES (3, 2);
+
+INSERT INTO ITEM(item_name, item_number, item_price, enabled, created_at, created_ip, modified_at, modified_ip)
+VALUES ('키보드', '123-342', 150000, true, current_timestamp(), '127.0.0.1', current_timestamp(), '127.0.0.1');
+INSERT INTO ITEM(item_name, item_number, item_price, enabled, created_at, created_ip, modified_at, modified_ip)
+VALUES ('마우스', '535-589', 30000, true, current_timestamp(), '127.0.0.2', current_timestamp(), '127.0.0.1');
+INSERT INTO ITEM(item_name, item_number, item_price, enabled, created_at, created_ip, modified_at, modified_ip)
+VALUES ('받침대', '732-741', 20000, false, current_timestamp(), '127.0.0.1', current_timestamp(), '127.0.0.2');

@@ -1,9 +1,6 @@
 package com.csupreme19.studyjpa.repository;
 
-import com.csupreme19.studyjpa.domain.Account;
-import com.csupreme19.studyjpa.domain.Person;
-import com.csupreme19.studyjpa.domain.Post;
-import com.csupreme19.studyjpa.domain.Tag;
+import com.csupreme19.studyjpa.domain.*;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,6 +20,7 @@ public class JpaRepositoryTests {
     private static final Long TEST_POST_ID = 1L;
     private static final String TEST_MODIFIER_ID = "honggilsoon19";
     private static final Long TEST_TAG_ID = 1L;
+    private static final Long TEST_ITEM_ID = 1L;
 
     @Autowired
     private AccountRepository accountRepository;
@@ -35,6 +33,9 @@ public class JpaRepositoryTests {
 
     @Autowired
     private TagRepository tagRepository;
+
+    @Autowired
+    private ItemRepository itemRepository;
 
     @Test
     @DisplayName("OneToOne 양방향 매핑 테스트")
@@ -96,5 +97,14 @@ public class JpaRepositoryTests {
         log.info(person.toString());
         assertThat(person).isNotNull();
         assertThat(person.getEmail()).isNull();
+    }
+
+    @Test
+    @DisplayName("Transient Method 테스트")
+    public void transientMethodTest() {
+        Item item = itemRepository.findById(TEST_ITEM_ID).orElseThrow();
+        log.info(item.toString());
+        assertThat(item).isNotNull();
+        assertThat(item.getItemNumber()).isNull();
     }
 }

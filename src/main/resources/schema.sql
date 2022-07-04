@@ -67,3 +67,15 @@ CREATE TABLE POST_TAG (
                           post_id BIGINT NOT NULL,
                           tag_id BIGINT NOT NULL
 );
+
+CREATE TABLE ITEM (
+                     id BIGINT PRIMARY KEY AUTO_INCREMENT,
+                     item_name VARCHAR,
+                     item_price BIGINT,
+                     item_number VARCHAR,
+                     enabled BOOLEAN DEFAULT TRUE,
+                     created_at TIMESTAMP,
+                     created_ip VARCHAR,
+                     modified_at TIMESTAMP,
+                     modified_ip VARCHAR
+);
