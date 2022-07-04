@@ -73,6 +73,18 @@ erDiagram
     		long post_id FK
     		long tag_id FK
     }
+    
+    ITEM {
+        long id PK
+        string item_name
+        string item_number
+        long item_price
+        boolean enabled
+        timestamp created_at
+        string created_ip
+        timestamp modified_at
+        string modified_ip
+    }
 
     PERSON ||--|| ACCOUNT : is
     ACCOUNT ||--|{ POST : uses
