@@ -1,17 +1,19 @@
 package com.csupreme19.studyjpa.domain;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Getter
 @Setter
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Access(AccessType.PROPERTY)
 @ToString
 public class Item extends CommonEntity {
+    @Id
     private Long id;
     private String itemName;
     private String itemNumber;

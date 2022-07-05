@@ -123,4 +123,23 @@ public class JpaRepositoryTests {
         log.info(item.toString());
         assertThat(item.getItemPrice()).isNotNull();
     }
+
+    @Test
+    @DisplayName("JPA Auditing 테스트")
+    public void auditingTest() {
+        Item item = Item.builder()
+                .id(12345L)
+                .itemName("testItemName")
+                .itemNumber("testItemNumber")
+                .itemPrice(12345L)
+                .enabled(true)
+                .build();
+        Item resultItem = itemRepository.save(item);
+        log.info(resultItem.toString());
+        log.info(resultItem.getCreatedAt().toString());
+        log.info(resultItem.getModifiedAt().toString());
+        assertThat(resultItem).isNotNull();
+        assertThat(resultItem.getCreatedAt()).isNotNull();
+        assertThat(resultItem.getModifiedAt()).isNotNull();
+    }
 }
