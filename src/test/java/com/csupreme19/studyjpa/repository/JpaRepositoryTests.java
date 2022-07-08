@@ -11,6 +11,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import javax.persistence.Persistence;
+import javax.persistence.PersistenceUtil;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
@@ -160,8 +163,36 @@ public class JpaRepositoryTests {
     @Test
     @DisplayName("Eager 로딩 테스트")
     public void eagerLoadingTest() {
-        Person person = personRepository.getReferenceById(TEST_PERSON_ID);
-        log.info(person.toString());
+        PersistenceUtil persistenceUtil = Persistence.getPersistenceUtil();
+
+        Person person = personRepository.findById(TEST_PERSON_ID).orElseThrow();
+        log.info("연관관계 접근 전 생성 여부: {}, {}", persistenceUtil.isLoaded(person.getAccount()), person.getAccount().getClass());
+
+        Account account = person.getAccount();
+        String username = account.getUsername();
+
+        log.info("연관관계 접근 후 생성 여부: {}, {}", persistenceUtil.isLoaded(person.getAccount()), person.getAccount().getClass());
+
         assertThat(person).isNotNull();
+        assertThat(account).isNotNull();
     }
+
+    @Test
+    @DisplayName("Lazy 로딩 테스트")
+    public void lazyLoadingTest() {
+        PersistenceUtil persistenceUtil = Persistence.getPersistenceUtil();
+
+        Post post = postRepository.findById(TEST_POST_ID).orElseThrow();
+
+        log.info("연관관계 접근 전 생성 여부: {}, {}", persistenceUtil.isLoaded(post.getAuthor()), post.getAuthor().getClass());
+
+        Account account = post.getAuthor();
+        String username = account.getUsername();
+
+        log.info("연관관계 접근 후 생성 여부: {}, {}", persistenceUtil.isLoaded(post.getAuthor()), post.getAuthor().getClass());
+
+        assertThat(post).isNotNull();
+        assertThat(account).isNotNull();
+    }
+
 }

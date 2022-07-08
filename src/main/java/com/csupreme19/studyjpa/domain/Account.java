@@ -26,7 +26,7 @@ public class Account extends CommonEntity {
     @OneToOne(mappedBy = "account")     // 양방향 매핑 관계를 정의
     private Person person;
 
-    @OneToMany(mappedBy = "modifier")
+    @OneToMany(mappedBy = "author")
     private List<Post> posts;
 
     public void updateAccount(String username, Boolean enabled) {

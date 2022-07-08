@@ -23,7 +23,7 @@ public class Post extends CommonEntity {
     @JoinColumn(name = "createdId")
     private Account author;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "modifiedId")
     private Account modifier;
 }
