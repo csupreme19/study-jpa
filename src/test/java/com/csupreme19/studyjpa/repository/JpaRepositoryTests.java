@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -141,5 +143,17 @@ public class JpaRepositoryTests {
         assertThat(resultItem).isNotNull();
         assertThat(resultItem.getCreatedAt()).isNotNull();
         assertThat(resultItem.getModifiedAt()).isNotNull();
+    }
+
+    @Test
+    @DisplayName("Pageable 적용 테스트")
+    public void pageableTest() {
+        int givenPage = 1;
+        int givenSize = 1;
+        Page<Item> page = itemRepository.findAll(PageRequest.of(givenPage, givenSize));
+        log.info(page.getContent().toString());
+        log.info(String.valueOf(page.getTotalPages()));
+        assertThat(page).isNotNull();
+        assertThat(page.toList()).isNotNull();
     }
 }

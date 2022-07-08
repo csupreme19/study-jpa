@@ -4,6 +4,9 @@ import com.csupreme19.studyjpa.dto.AccountDto;
 import com.csupreme19.studyjpa.model.CommonResponse;
 import com.csupreme19.studyjpa.service.AccountService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +26,7 @@ public class AccountController {
     private final AccountService accountService;
 
     @GetMapping
-    public ResponseEntity<CommonResponse<?>> getAccounts() {
+    public ResponseEntity<CommonResponse<?>> getAccounts(Pageable pageable) {
         return new ResponseEntity<>(new CommonResponse<>(this.accountService.getAccounts()), HttpStatus.OK);
     }
 
