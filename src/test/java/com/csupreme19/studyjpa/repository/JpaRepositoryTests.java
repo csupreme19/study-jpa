@@ -156,4 +156,12 @@ public class JpaRepositoryTests {
         assertThat(page).isNotNull();
         assertThat(page.toList()).isNotNull();
     }
+
+    @Test
+    @DisplayName("Eager 로딩 테스트")
+    public void eagerLoadingTest() {
+        Person person = personRepository.getReferenceById(TEST_PERSON_ID);
+        log.info(person.toString());
+        assertThat(person).isNotNull();
+    }
 }
