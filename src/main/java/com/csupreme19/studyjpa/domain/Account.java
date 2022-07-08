@@ -1,7 +1,6 @@
 package com.csupreme19.studyjpa.domain;
 
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,6 +10,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @ToString
 public class Account extends CommonEntity {

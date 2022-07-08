@@ -1,13 +1,16 @@
 package com.csupreme19.studyjpa.dto;
 
 import com.csupreme19.studyjpa.domain.Person;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class AccountDto extends CommonDto {
     private String id;
     private String password;
